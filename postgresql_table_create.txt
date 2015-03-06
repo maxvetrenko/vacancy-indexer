@@ -1,0 +1,12 @@
+CREATE TABLE vacancy
+(
+  url text NOT NULL,
+  name text,
+  publication_date date,
+  job_location text,
+  company text,
+  industry text,
+  employment_type text,
+  full_text text,
+  CONSTRAINT vacancy_pkey PRIMARY KEY (url)
+);

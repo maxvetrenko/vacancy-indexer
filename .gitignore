@@ -1,0 +1,7 @@
+target
+logs
+release.properties
+pom.xml.releaseBackup
+.settings
+.checkstyle
+*~

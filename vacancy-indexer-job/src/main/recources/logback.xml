@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- logback doesn't provide schema or DTD for configuration files, because 
+	of fluent syntax that can be used here -->
+<!DOCTYPE configuration>
+<configuration scan="true">
+
+	<property name="app.name" value="vacancy-crawler" />
+	<property name="root.log.filename" value="${app.name}.log" />
+
+	<property name="common.log.file.date.pattern" value="yyyy-MM-dd" />
+
+	<property name="common.log.pattern"
+		value="[%d{'yyyy-MM-dd HH:mm:ss,SSS'}] [${app.name}] [%X{username}] [%t] [%c{0}][%marker] [%p] - %m%n" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${common.log.pattern}</pattern>
+		</layout>
+	</appender>
+
+	<appender name="LOGFILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>../logs/${root.log.filename}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- ${sub.folder} property comes from the specific logback.xml for application -->
+			<fileNamePattern>../logs/${root.log.filename}.%d{${common.log.file.date.pattern}}</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${common.log.pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="LOGFILE" />
+	</root>
+
+</configuration>
